@@ -48,7 +48,7 @@ namespace unlockfps_nc
             _windowLocation = Location;
             _windowSize = Size;
             if (_config.AutoStart)
-                BtnStartGame_Click(null, null);
+                BtnStartGame_Click(this, EventArgs.Empty);
             else if (_config.StartMinimized)
                 WindowState = FormWindowState.Minimized;
         }

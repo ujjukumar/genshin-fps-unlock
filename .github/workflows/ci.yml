@@ -1,0 +1,91 @@
+name: CI/CD Build & Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - netcore
+      - upgrade-dotnet-10
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+      - master
+      - netcore
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build & Package (Windows x64)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore dependencies
+        run: dotnet restore unlockfps_nc.sln
+
+      - name: Build Native UnlockerStub (x64 Release)
+        run: msbuild UnlockerStub\UnlockerStub.vcxproj /p:Configuration=Release /p:Platform=x64
+
+      - name: Verify UnlockerStub.dll in Resources
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "unlockfps_nc\Resources\UnlockerStub.dll")) {
+            throw "UnlockerStub.dll was not found in unlockfps_nc\Resources\!"
+          }
+          Write-Host "UnlockerStub.dll verified in unlockfps_nc\Resources\"
+
+      - name: Publish unlockfps_nc (ReleaseMin, Single-File win-x64)
+        run: >-
+          dotnet publish unlockfps_nc\unlockfps_nc.csproj
+          -c ReleaseMin
+          -r win-x64
+          -f net10.0-windows
+          --self-contained false
+          -p:PublishSingleFile=true
+          -p:PublishReadyToRun=false
+          -o dist
+
+      - name: Generate SHA-256 Checksum
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash -Path "dist\unlockfps_nc.exe" -Algorithm SHA256).Hash
+          "$hash  unlockfps_nc.exe" | Out-File -FilePath "dist\SHA256SUMS.txt" -Encoding utf8
+          Write-Host "SHA256: $hash"
+
+      - name: Create ZIP Archive
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "dist\unlockfps_nc.exe", "dist\SHA256SUMS.txt" -DestinationPath "dist\genshin-fps-unlock-x64.zip"
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: genshin-fps-unlock-x64
+          path: dist/*
+          retention-days: 14
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/unlockfps_nc.exe
+            dist/genshin-fps-unlock-x64.zip
+            dist/SHA256SUMS.txt
+          generate_release_notes: true

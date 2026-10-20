@@ -1,4 +1,4 @@
-﻿namespace unlockfps_nc
+namespace unlockfps_nc
 {
     partial class MainForm
     {
@@ -215,7 +215,6 @@
         private ToolTip ToolTipMain;
         private NotifyIcon NotifyIconMain;
         private ContextMenuStrip ContextNotify;
-        private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem ExitMenuItem;
         private ToolStripMenuItem StartGameMenuItem;
     }

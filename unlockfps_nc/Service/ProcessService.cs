@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -63,7 +63,7 @@ namespace unlockfps_nc.Service
             uint creationFlag = _config.SuspendLoad ? 4u : 0u;
             var gameFolder = Path.GetDirectoryName(_config.GamePath);
 
-            if (!Native.CreateProcess(_config.GamePath, BuildCommandLine(), IntPtr.Zero, IntPtr.Zero, false, creationFlag, IntPtr.Zero, gameFolder, ref si, out var pi)) {
+            if (!Native.CreateProcess(_config.GamePath, BuildCommandLine(), IntPtr.Zero, IntPtr.Zero, false, creationFlag, IntPtr.Zero, gameFolder ?? string.Empty, ref si, out var pi)) {
                 MessageBox.Show(
                     $@"CreateProcess failed ({Marshal.GetLastWin32Error()}){Environment.NewLine} {Marshal.GetLastPInvokeErrorMessage()}",
                     @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

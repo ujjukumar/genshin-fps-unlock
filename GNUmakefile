@@ -1,4 +1,4 @@
-release : unlockfps_nc/bin/ReleaseMin/net8.0-windows/win-x64/publish/unlockfps_nc.exe
+release : unlockfps_nc/bin/ReleaseMin/net10.0-windows/win-x64/publish/unlockfps_nc.exe
 
 UnlockerStub/UnlockerStub.dll :
 	make -C $(@D)
@@ -6,8 +6,8 @@ UnlockerStub/UnlockerStub.dll :
 unlockfps_nc/Resources/%.dll : UnlockerStub/%.dll
 	cp $^ $@
 
-unlockfps_nc/bin/%/net8.0-windows/win-x64/publish/unlockfps_nc.exe : unlockfps_nc/unlockfps_nc.csproj unlockfps_nc/Resources/UnlockerStub.dll
-	dotnet publish $< -c $* -r win-x64 -f net8.0-windows --self-contained false -p:PublishSingleFile=true -p:PublishReadyToRun=false
+unlockfps_nc/bin/%/net10.0-windows/win-x64/publish/unlockfps_nc.exe : unlockfps_nc/unlockfps_nc.csproj unlockfps_nc/Resources/UnlockerStub.dll
+	dotnet publish $< -c $* -r win-x64 -f net10.0-windows --self-contained false -p:PublishSingleFile=true -p:PublishReadyToRun=false
 
 clean :
-	rm -rf UnlockerStub/UnlockerStub.dll unlockfps_nc/Resources/UnlockerStub.dll.dll unlockfps_nc/bin
+	rm -rf UnlockerStub/UnlockerStub.dll unlockfps_nc/Resources/UnlockerStub.dll unlockfps_nc/bin

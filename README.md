@@ -10,13 +10,13 @@
  - You can download the compiled binary over at '[Release](https://github.com/34736384/genshin-fps-unlock/releases)' if you don't want to compile it yourself
  - Free code signing provided by [SignPath.io](https://signpath.io/)
  ## Compiling
- - Use Visual Studio 2022 Community Edition to compile
+ - Use Visual Studio 2022 / 2026 Community Edition (or MSVC v143/v145) to compile
 
  ### Cross Compiling on GNU/Linux
- You need [dotnet-8 SDK for Linux](https://dotnet.microsoft.com/en-us/download/dotnet) for .NET apps and x86_64-w64-mingw32 tool-chain for compiling the UnlockerStub to dll. Take Debian as an example, `apt install mingw-w64` installs the MinGW tool-chain. Finally, use `make` to build.
+ You need [dotnet-10 SDK for Linux](https://dotnet.microsoft.com/en-us/download/dotnet) for .NET apps and x86_64-w64-mingw32 tool-chain for compiling the UnlockerStub to dll. Take Debian as an example, `apt install mingw-w64` installs the MinGW tool-chain. Finally, use `make` to build.
 
  ## Usage
- - Make sure you have the [.NET Desktop Runtime 8.0.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.0-windows-x64-installer) (Usually it should come installed)
+ - Make sure you have the [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/en-us/download/dotnet) installed
  - Run the exe and click 'Start Game'
  - If it is your first time running, unlocker will attempt to find your game through the registry. If it fails, then it will ask you to either browse or run the game.
  - Place the compiled exe anywhere you want (except for the game folder)
@@ -25,8 +25,8 @@
  >It requires adminstrator because the game needs to be started by the unlocker and the game requires such permission
  - To load other third-party plugins, go to `Options->Settings->DLLs` and click add
 
-## Version 3.0.0 Changes
- - Rewritten the project in .NET 8
+## Version Changes
+ - Upgraded the project to .NET 10 and MSVC v145
  - Added a launch option to use mobile UI (for streaming from mobile devices or touchscreen laptops)
  ## Notes
  - HoYoverse (miHoYo) is well aware of this tool, and you will not get banned for using **ONLY** fps unlock.
@@ -42,13 +42,13 @@
  - 如果需要更新我会尽快更新
 
 ## 编译
- - 用VS2022编译
+ - 用 VS2022 / VS2026 编译
 
 ### GNU/Linux 上交叉编译
 见 [Cross Compiling on GNU/Linux](#cross-compiling-on-gnulinux)
 
 ## 食用指南
- - 运行前确保系统已安装[.NET Desktop Runtime 8.0.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.0-windows-x64-installer) (一般来说系统自带就有)
+ - 运行前确保系统已安装 [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/en-us/download/dotnet)
  - 第一次运行的话先以管理员运行，解锁器会尝试通过注册表寻找游戏路经，如果找不到的话会提示你浏览游戏位置或者开启游戏
  - 解锁器放哪都行
  - 运行之前确保游戏是关闭的
@@ -56,7 +56,7 @@
  - 解锁器不能关掉
 >使用管理员运行是因为游戏必须由解锁器启动，游戏本身就需要管理员权限了，所以负责启动的也是需要的
 
-## 3.0.0 版本更新
- - 用.NET 8重写了项目
+## 版本更新
+ - 升级至 .NET 10 与 MSVC v145
  - 添加了一个启动项，可以以移动端UI启动
 

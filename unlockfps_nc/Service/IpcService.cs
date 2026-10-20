@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
@@ -133,7 +133,7 @@ namespace unlockfps_nc.Service
 
             try {
                 using var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-                stream.CopyTo(fileStream);
+                stream?.CopyTo(fileStream);
             }
             catch (Exception) { }
 

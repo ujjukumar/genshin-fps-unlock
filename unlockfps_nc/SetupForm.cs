@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +17,7 @@ namespace unlockfps_nc
 {
     public partial class SetupForm : Form
     {
-        private CancellationTokenSource _cts;
+        private CancellationTokenSource _cts = new();
 
         private readonly ConfigService _configService;
         private readonly Config _config;
@@ -143,6 +143,8 @@ namespace unlockfps_nc
             var selectedFile = BrowseDialog.FileName;
             var fileName = Path.GetFileNameWithoutExtension(selectedFile);
             var directory = Path.GetDirectoryName(selectedFile);
+            if (string.IsNullOrEmpty(directory))
+                return;
 
             if (fileName != "GenshinImpact" && fileName != "YuanShen")
             {
@@ -165,7 +167,7 @@ namespace unlockfps_nc
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            var selectedPath = (string)ComboResult.SelectedItem;
+            var selectedPath = ComboResult.SelectedItem as string;
             if (string.IsNullOrEmpty(selectedPath))
                 return;
 
