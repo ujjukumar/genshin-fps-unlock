@@ -46,7 +46,11 @@ jobs:
         shell: pwsh
         run: |
           if (-not (Test-Path "unlockfps_nc\Resources\UnlockerStub.dll")) {
-            throw "UnlockerStub.dll was not found in unlockfps_nc\Resources\!"
+            if (Test-Path "UnlockerStub\unlockfps_nc\Resources\UnlockerStub.dll") {
+              Copy-Item "UnlockerStub\unlockfps_nc\Resources\UnlockerStub.dll" "unlockfps_nc\Resources\UnlockerStub.dll" -Force
+            } else {
+              throw "UnlockerStub.dll was not found!"
+            }
           }
           Write-Host "UnlockerStub.dll verified in unlockfps_nc\Resources\"
 

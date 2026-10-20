@@ -99,8 +99,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <TargetResourcesDir Condition="'$(SolutionDir)' != '' and '$(SolutionDir)' != '*Undefined*'">$(SolutionDir)unlockfps_nc\Resources\</TargetResourcesDir>
-    <TargetResourcesDir Condition="'$(TargetResourcesDir)' == ''">$(MSBuildProjectDirectory)\..\unlockfps_nc\Resources\</TargetResourcesDir>
+    <TargetResourcesDir>$(MSBuildProjectDirectory)\..\unlockfps_nc\Resources\</TargetResourcesDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(TargetResourcesDir)</OutDir>
